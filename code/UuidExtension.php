@@ -1,63 +1,108 @@
 <?php
+namespace LeKoala\Uuid;
 
 use Ramsey\Uuid\Uuid;
+use InvalidArgumentException;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\FieldList;
 use Tuupola\Base62Proxy as Base62;
+use SilverStripe\ORM\DataExtension;
 
 class UuidExtension extends DataExtension
 {
-	private static $db = [
-		"Uuid" => "DBUuid"
-	];
+    const UUID_BINARY_FORMAT = 'binary';
+    const UUID_STRING_FORMAT = 'string';
+    const UUID_BASE62_FORMAT = 'base62';
 
-	public function updateCMSFields(\FieldList $fields)
-	{
-		$fields->removeByName('Uuid');
-	}
+    private static $db = [
+        "Uuid" => DBUuid::class,
+    ];
 
-	public function assignNewUuid()
-	{
-		$uuid = Uuid::uuid4();
-		$this->owner->Uuid = $uuid->getBytes();
-	}
+    /**
+     * Assign a new uuid to this record
+     *
+     * @param string $field The field where the Uuid is stored in binary format
+     * @return void
+     */
+    public function assignNewUuid($field = 'Uuid')
+    {
+        $uuid = Uuid::uuid4();
+        $this->owner->Uuid = $uuid->getBytes();
+    }
 
-	/**
-	 * Get a record by its uuid
-	 *
-	 * @param string $class
-	 * @param string $uuid
-	 * @param bool $fromBase62
-	 * @return DataObject
-	 */
-	public static function getByUuid($class, $value, $fromBase62 = true)
-	{
-		if ($fromBase62) {
-			$uuid = Uuid::fromBytes(Base62::decode($value));
-		} else {
-			$uuid = Uuid::fromString($value);
-		}
-		return $class::get()->filter('Uuid', $uuid->getBytes())->first();
-	}
+    /**
+     * Get a record by its uuid
+     *
+     * @param string $class
+     * @param string $uuid
+     * @param string $format
+     * @return DataObject
+     */
+    public static function getByUuid($class, $value, $format = null)
+    {
+        // Guess format from value
+        if ($format === null) {
+            $format = self::getUuidFormat($value);
+        }
+        // Convert format to bytes for query
+        switch ($format) {
+            case self::UUID_BASE62_FORMAT:
+                $uuid = Uuid::fromBytes(Base62::decode($value));
+                break;
+            case self::UUID_STRING_FORMAT:
+                $uuid = Uuid::fromString($value);
+                break;
+            case self::UUID_BINARY_FORMAT:
+                $uuid = Uuid::fromBytes($value);
+                break;
+        }
+        // Fetch the first record
+        return $class::get()->filter('Uuid', $uuid->getBytes())->first();
+    }
 
-	/**
-	 * Return a uuid suitable for an URL, like an URLSegment
-	 *
-	 * @return string
-	 */
-	public function UuidSegment()
-	{
-		if (!$this->owner->Uuid) {
-			$this->assignNewUuid();
-			$this->owner->write();
-		}
-		return $this->owner->dbObject('Uuid')->Base62();
-	}
+    /**
+     * Guess uuid format based on strlen
+     *
+     * @param mixed $value
+     * @return string
+     */
+    public static function getUuidFormat($value)
+    {
+        $len = strlen($value);
 
-	public function onBeforeWrite()
-	{
-		parent::onBeforeWrite();
+        if ($len == 36) {
+             // d84560c8-134f-11e6-a1e2-34363bd26dae => 36 chars
+            return self::UUID_STRING_FORMAT;
+        } elseif ($len == 22) {
+            // 6a630O1jrtMjCrQDyG3D3O => 22 chars
+            return self::UUID_BASE62_FORMAT;
+        } elseif ($len == 16) {
+            return self::UUID_BINARY_FORMAT;
+        }
+        throw new InvalidArgumentException("$value does not seem to be a valid uuid");
+    }
 
-		if (!$this->owner->Uuid) {
-			$this->assignNewUuid();
-		}
-	}
+    /**
+     * Return a uuid suitable for an URL, like an URLSegment
+     *
+     * @return string
+     */
+    public function UuidSegment()
+    {
+        // assign on the fly
+        if (!$this->owner->Uuid) {
+            $this->assignNewUuid();
+            $this->owner->write();
+        }
+        return $this->owner->dbObject('Uuid')->Base62();
+    }
+
+    public function onBeforeWrite()
+    {
+        parent::onBeforeWrite();
+
+        if (!$this->owner->Uuid) {
+            $this->assignNewUuid();
+        }
+    }
 }
