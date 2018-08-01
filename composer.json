@@ -21,6 +21,7 @@
     "extra": {
         "installer-name": "uuid"
     },
+    "minimum-stability": "dev",
     "support": {
         "issues": "https://github.com/lekoala/silverstripe-uuid/issues"
     }

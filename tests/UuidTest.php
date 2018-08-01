@@ -4,7 +4,6 @@ namespace LeKoala\Uuid\Tests;
 use Ramsey\Uuid\Uuid;
 use LeKoala\Uuid\DBUuid;
 use LeKoala\Uuid\UuidExtension;
-use SilverStripe\Security\Member;
 use SilverStripe\Dev\SapphireTest;
 
 /**
