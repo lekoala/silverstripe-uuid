@@ -83,8 +83,8 @@ class UuidExtension extends DataExtension
         if ($len == 36) {
              // d84560c8-134f-11e6-a1e2-34363bd26dae => 36 chars
             return self::UUID_STRING_FORMAT;
-        } elseif ($len == 22) {
-            // 6a630O1jrtMjCrQDyG3D3O => 22 chars
+        } elseif ($len > 20 && $len < 24) {
+            // 6a630O1jrtMjCrQDyG3D3O => 22 chars (in theory, because sometimes it's different)
             return self::UUID_BASE62_FORMAT;
         } elseif ($len == 16) {
             return self::UUID_BINARY_FORMAT;
