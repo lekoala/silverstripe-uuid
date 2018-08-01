@@ -34,7 +34,7 @@ SUBSTR(HEX(Uuid), 9, 4), '-',
 SUBSTR(HEX(Uuid), 13, 4), '-',
 SUBSTR(HEX(Uuid), 17, 4), '-',
 SUBSTR(HEX(Uuid), 21)
-))
+)) AS UuidFormatted
 SQL;
         return $sql;
     }
