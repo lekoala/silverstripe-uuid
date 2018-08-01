@@ -36,16 +36,20 @@ class UuidExtension extends DataExtension
     /**
      * Get a record by its uuid
      *
-     * @param string $class
-     * @param string $uuid
-     * @param string $format
-     * @return DataObject
+     * @param string $class The class
+     * @param string $uuid The uuid value
+     * @param string $format Any UUID_XXXX_FORMAT constant or string
+     * @return DataObject|false The DataObject or false if no record is found or format invalid
      */
     public static function getByUuid($class, $value, $format = null)
     {
         // Guess format from value
         if ($format === null) {
-            $format = self::getUuidFormat($value);
+            try {
+                $format = self::getUuidFormat($value);
+            } catch (InvalidArgumentException $ex) {
+                $format = null;
+            }
         }
         // Convert format to bytes for query
         switch ($format) {
@@ -58,6 +62,8 @@ class UuidExtension extends DataExtension
             case self::UUID_BINARY_FORMAT:
                 $uuid = Uuid::fromBytes($value);
                 break;
+            default:
+                return false;
         }
         // Fetch the first record
         return $class::get()->filter('Uuid', $uuid->getBytes())->first();
@@ -68,6 +74,7 @@ class UuidExtension extends DataExtension
      *
      * @param mixed $value
      * @return string
+     * @throws InvalidArgumentException
      */
     public static function getUuidFormat($value)
     {
