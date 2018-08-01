@@ -57,5 +57,19 @@ class UuidTest extends SapphireTest
         $this->assertEquals(UuidExtension::UUID_BASE62_FORMAT, UuidExtension::getUuidFormat($base62));
         $this->assertEquals(UuidExtension::UUID_BINARY_FORMAT, UuidExtension::getUuidFormat($binary));
         $this->assertEquals(UuidExtension::UUID_STRING_FORMAT, UuidExtension::getUuidFormat($uuid));
+
+        // A uuid that results to 21 chars
+        $uuid = '037961c2-122d-431f-9b34-4f8506b55ce7';
+        $base62 = '6YRobjF5RORzHeaX6fvCZ';
+        $binary = Uuid::fromString($uuid)->getBytes();
+
+        $model = new UuidModel;
+        // Manually assign a uuid
+        $model->Uuid = $binary;
+        $model->write();
+
+        /* @var $dbUuid DBUuid */
+        $dbUuid = $model->dbObject('Uuid');
+        $this->assertEquals($base62, $dbUuid->Base62());
     }
 }

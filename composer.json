@@ -21,6 +21,11 @@
     "extra": {
         "installer-name": "uuid"
     },
+    "scripts": {
+        "lint": "phpcs code/ tests/",
+        "lint-clean": "phpcbf code/ tests/",
+        "test": "phpunit -v"
+    },
     "minimum-stability": "dev",
     "support": {
         "issues": "https://github.com/lekoala/silverstripe-uuid/issues"
