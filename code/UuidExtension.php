@@ -2,11 +2,13 @@
 namespace LeKoala\Uuid;
 
 use Ramsey\Uuid\Uuid;
+use SilverStripe\ORM\DB;
 use InvalidArgumentException;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FieldList;
 use Tuupola\Base62Proxy as Base62;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\DataObjectSchema;
 
 class UuidExtension extends DataExtension
 {
@@ -19,15 +21,16 @@ class UuidExtension extends DataExtension
     ];
 
     /**
-     * Assign a new uuid to this record
+     * Assign a new uuid to this record. This will overwrite any existing uuid.
      *
      * @param string $field The field where the Uuid is stored in binary format
-     * @return void
+     * @return string The new uuid
      */
     public function assignNewUuid($field = 'Uuid')
     {
         $uuid = Uuid::uuid4();
         $this->owner->Uuid = $uuid->getBytes();
+        return $this->owner->Uuid;
     }
 
     /**
@@ -91,8 +94,13 @@ class UuidExtension extends DataExtension
     {
         // assign on the fly
         if (!$this->owner->Uuid) {
-            $this->assignNewUuid();
-            $this->owner->write();
+            $uuid = $this->assignNewUuid();
+            // Make a quick write without using orm
+            if ($this->owner->ID) {
+                $schema = new DataObjectSchema;
+                $table = $schema->tableName(get_class($this->owner));
+                DB::prepared_query("UPDATE $table SET Uuid = ? WHERE ID = ?", [$uuid, $this->owner->ID]);
+            }
         }
         return $this->owner->dbObject('Uuid')->Base62();
     }
