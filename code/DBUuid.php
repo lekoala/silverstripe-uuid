@@ -85,7 +85,7 @@ SQL;
 
     public function scaffoldFormField($title = null, $params = null)
     {
-        return new HiddenField($this->name, $title);
+        return false;
     }
 
     public function nullValue()
