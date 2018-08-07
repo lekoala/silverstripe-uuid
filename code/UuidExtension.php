@@ -24,12 +24,24 @@ class UuidExtension extends DataExtension
      * Assign a new uuid to this record. This will overwrite any existing uuid.
      *
      * @param string $field The field where the Uuid is stored in binary format
+     * @param bool $check Check if the uuid is already taken
      * @return string The new uuid
      */
-    public function assignNewUuid($field = 'Uuid')
+    public function assignNewUuid($field = 'Uuid', $check = true)
     {
         $uuid = Uuid::uuid4();
-        $this->owner->Uuid = $uuid->getBytes();
+        if ($check) {
+            $schema = DataObjectSchema::create();
+            $table = $schema->tableName(get_class($this->owner));
+            do {
+                $this->owner->Uuid = $uuid->getBytes();
+                // If we have something, keep checking
+                $check = DB::prepared_query('SELECT count(ID) FROM ' . $table . ' WHERE Uuid = ?', [$this->owner->Uuid])->value() > 0;
+            } while ($check);
+        } else {
+            $this->owner->Uuid = $uuid->getBytes();
+        }
+
         return $this->owner->Uuid;
     }
 
