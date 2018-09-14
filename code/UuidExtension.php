@@ -77,8 +77,9 @@ class UuidExtension extends DataExtension
             default:
                 return false;
         }
-        // Fetch the first record
-        return $class::get()->filter('Uuid', $uuid->getBytes())->first();
+        // Fetch the first record and disable subsite filter in a similar way as asking by ID
+        $q = $class::get()->filter('Uuid', $uuid->getBytes())->setDataQueryParam('Subsite.filter', false);
+        return $q->first();
     }
 
     /**
