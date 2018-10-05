@@ -15,6 +15,7 @@ use SilverStripe\ORM\FieldType\DBField;
  * @link https://paragonie.com/blog/2015/09/comprehensive-guide-url-parameter-encryption-in-php
  * @link https://www.percona.com/blog/2014/12/19/store-uuid-optimized-way/
  * @link https://mariadb.com/kb/en/library/guiduuid-performance/
+ * @link https://stackoverflow.com/questions/28251144/inserting-and-selecting-uuids-as-binary16
  */
 class DBUuid extends DBField
 {
