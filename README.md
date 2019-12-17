@@ -20,15 +20,22 @@ SilverStripe Uuid module
 
 Easily add uuid to your DataObjects
 
+Getting started
+==================
+
 Simply add the extension to your DataObject
 
 	MyDataObject:
-		extensions:
-			- LeKoala\Uuid\UuidExtension
+	  extensions:
+	    - LeKoala\Uuid\UuidExtension
 
-Call UuidExtension::getByUuid(MyDataObject::class, $uuid) to retrieve the record by Uuid
+Call UuidExtension::getByUuid(MyDataObject::class, $uuid) to retrieve the record by Uuid.
 
-In your templates, use UuidSegment to ensure Uuid value is generated on the record
+In your templates, use UuidSegment to ensure Uuid value is generated on the record.
+UuidSegment are base62 encoded in order to be more readable.
+
+Since Uuid's are stored in binary format for performance reason, you need to call $myObject->dbObject('Uuid').Nice()
+to get a readable value.
 
 Compatibility
 ==================
