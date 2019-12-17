@@ -1,11 +1,11 @@
 <?php
+
 namespace LeKoala\Uuid;
 
-use Ramsey\Uuid\Uuid;
 use SilverStripe\ORM\DB;
-use SilverStripe\Forms\TextField;
-use Tuupola\Base62Proxy as Base62;
 use SilverStripe\ORM\FieldType\DBField;
+use Tuupola\Base62Proxy;
+use Ramsey\Uuid\Uuid;
 
 /**
  * A uuid field that stores Uuid in binary formats
@@ -81,7 +81,7 @@ SQL;
         if (!$this->value) {
             return $this->nullValue();
         }
-        return Base62::encode($this->value);
+        return Base62Proxy::encode($this->value);
     }
 
     public function scaffoldFormField($title = null, $params = null)

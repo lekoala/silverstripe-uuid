@@ -1,11 +1,11 @@
 <?php
+
 namespace LeKoala\Uuid;
 
 use Ramsey\Uuid\Uuid;
 use SilverStripe\ORM\DB;
 use InvalidArgumentException;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\Forms\FieldList;
 use Tuupola\Base62Proxy as Base62;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObjectSchema;
@@ -94,7 +94,7 @@ class UuidExtension extends DataExtension
         $len = strlen($value);
 
         if ($len == 36) {
-             // d84560c8-134f-11e6-a1e2-34363bd26dae => 36 chars
+            // d84560c8-134f-11e6-a1e2-34363bd26dae => 36 chars
             return self::UUID_STRING_FORMAT;
         } elseif ($len > 20 && $len < 24) {
             // 6a630O1jrtMjCrQDyG3D3O => 22 chars (in theory, because sometimes it's different)
