@@ -1,7 +1,7 @@
 {
     "name": "lekoala/silverstripe-uuid",
     "description": "Uuid data extension for SilverStripe",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",
         "uuid",
@@ -26,8 +26,8 @@
         "installer-name": "uuid"
     },
     "scripts": {
-        "lint": "phpcs code/ tests/",
-        "lint-clean": "phpcbf code/ tests/",
+        "lint": "phpcs src/ tests/",
+        "lint-clean": "phpcbf src/ tests/",
         "test": "phpunit -v"
     },
     "minimum-stability": "dev",

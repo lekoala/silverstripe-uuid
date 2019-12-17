@@ -32,7 +32,7 @@ In your templates, use UuidSegment to ensure Uuid value is generated on the reco
 
 Compatibility
 ==================
-Tested with 4.1
+Tested with 4.1 up to 4.4
 
 Maintainer
 ==================
