@@ -41,6 +41,8 @@ Compatibility
 ==================
 Tested with 4.1 up to 4.4
 
+Please use branch 3.x for ramsey/uuid
+
 Maintainer
 ==================
 LeKoala - thomas@lekoala.be
