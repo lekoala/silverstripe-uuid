@@ -16,8 +16,6 @@ SilverStripe Uuid module
 [![Dependency Status](https://www.versioneye.com/php/lekoala:silverstripe-uuid/badge.svg)](https://www.versioneye.com/php/lekoala:silverstripe-uuid)
 [![Reference Status](https://www.versioneye.com/php/lekoala:silverstripe-uuid/reference_badge.svg?style=flat)](https://www.versioneye.com/php/lekoala:silverstripe-uuid/references)
 
-![codecov.io](https://codecov.io/github/lekoala/silverstripe-uuid/branch.svg?branch=master)
-
 Easily add uuid to your DataObjects
 
 Getting started
