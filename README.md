@@ -39,7 +39,7 @@ to get a readable value.
 
 TODO
 ==================
-Switch to https://github.com/fab2s/SoUuid
+Switch to https://github.com/fab2s/SoUuid or use Ordered Uuid from Ramsey v4?
 
 Worth reading
 ==================
