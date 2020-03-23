@@ -37,6 +37,16 @@ UuidSegment are base62 encoded in order to be more readable.
 Since Uuid's are stored in binary format for performance reason, you need to call $myObject->dbObject('Uuid').Nice()
 to get a readable value.
 
+TODO
+==================
+Switch to https://github.com/fab2s/SoUuid
+
+Worth reading
+==================
+[Storing UUID Values in MySQL](https://www.percona.com/blog/2014/12/19/store-uuid-optimized-way/)
+[GUID/UUID Performance](https://mariadb.com/kb/en/guiduuid-performance/)
+[Laravel: The mysterious “Ordered UUID”](https://itnext.io/laravel-the-mysterious-ordered-uuid-29e7500b4f8): offer a good overview of the situation although it's a bit laravel specific
+
 Compatibility
 ==================
 Tested with 4.1 up to 4.4
