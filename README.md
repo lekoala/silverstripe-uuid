@@ -13,9 +13,6 @@ SilverStripe Uuid module
 [![Monthly Downloads](https://poser.pugx.org/lekoala/silverstripe-uuid/d/monthly)](https://packagist.org/packages/lekoala/silverstripe-uuid)
 [![Daily Downloads](https://poser.pugx.org/lekoala/silverstripe-uuid/d/daily)](https://packagist.org/packages/lekoala/silverstripe-uuid)
 
-[![Dependency Status](https://www.versioneye.com/php/lekoala:silverstripe-uuid/badge.svg)](https://www.versioneye.com/php/lekoala:silverstripe-uuid)
-[![Reference Status](https://www.versioneye.com/php/lekoala:silverstripe-uuid/reference_badge.svg?style=flat)](https://www.versioneye.com/php/lekoala:silverstripe-uuid/references)
-
 Easily add uuid to your DataObjects
 
 Getting started
