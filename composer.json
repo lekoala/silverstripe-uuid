@@ -15,6 +15,7 @@
     "require": {
         "php": ">=7.2",
         "silverstripe/framework": "^4",
+        "silverstripe/versioned": "^1",
         "tuupola/base62": "^2.1",
         "ramsey/uuid": "^3.9,<4"
     },
