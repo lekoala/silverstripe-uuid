@@ -1,6 +1,6 @@
 SilverStripe Uuid module
 ==================
-[![Build Status](https://travis-ci.org/lekoala/silverstripe-uuid.svg?branch=master)](https://travis-ci.org/lekoala/silverstripe-uuid)
+[![Build Status](https://travis-ci.com/lekoala/silverstripe-uuid.svg?branch=master)](https://travis-ci.com/lekoala/silverstripe-uuid)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/build.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/build-status/master)
@@ -30,14 +30,20 @@ Simply add the extension to your DataObject
 Call UuidExtension::getByUuid(MyDataObject::class, $uuid) to retrieve the record by Uuid.
 
 In your templates, use UuidSegment to ensure Uuid value is generated on the record.
-UuidSegment are base62 encoded in order to be more readable.
+UuidSegment are base62 encoded in order to be shorter and more readable.
 
 Since Uuid's are stored in binary format for performance reason, you need to call $myObject->dbObject('Uuid').Nice()
 to get a readable value.
 
+Upgrade to Ramsey v4
+==================
+
+If you happen to upgrade from previous versions you might want to check [this guide](https://uuid.ramsey.dev/en/latest/upgrading/3-to-4.html)
+
 TODO
 ==================
-Switch to https://github.com/fab2s/SoUuid or use Ordered Uuid from Ramsey v4?
+
+- Upgrade to Ramsey v4
 
 Worth reading
 ==================
@@ -49,9 +55,7 @@ Worth reading
 
 Compatibility
 ==================
-Tested with 4.1 up to 4.4
-
-Please use branch 3.x for ramsey/uuid
+Tested with 4.4 and up
 
 Maintainer
 ==================

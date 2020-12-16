@@ -1,4 +1,5 @@
 <?php
+
 namespace LeKoala\Uuid\Tests;
 
 use Ramsey\Uuid\Uuid;
@@ -14,12 +15,12 @@ use SilverStripe\Dev\SapphireTest;
 class UuidTest extends SapphireTest
 {
     protected static $extra_dataobjects = [
-        UuidModel::class
+        Test_UuidModel::class
     ];
 
     public function testRecordGetsUuid()
     {
-        $model = new UuidModel;
+        $model = new Test_UuidModel;
 
         $modelTitle = 'test model';
         $model->Title = $modelTitle;
@@ -30,7 +31,7 @@ class UuidTest extends SapphireTest
         $this->assertNotEmpty($model->Uuid);
 
         // check if we can fetch this record using our helper
-        $fetchedModel = UuidExtension::getByUuid(UuidModel::class, $model->Uuid);
+        $fetchedModel = UuidExtension::getByUuid(Test_UuidModel::class, $model->Uuid);
         $this->assertEquals($model->ID, $fetchedModel->ID);
     }
 
@@ -40,7 +41,7 @@ class UuidTest extends SapphireTest
         $base62 = '6a630O1jrtMjCrQDyG3D3O';
         $binary = Uuid::fromString($uuid)->getBytes();
 
-        $model = new UuidModel;
+        $model = new Test_UuidModel;
         // Manually assign a uuid
         $model->Uuid = $binary;
         $model->write();
@@ -63,7 +64,7 @@ class UuidTest extends SapphireTest
         $base62 = '6YRobjF5RORzHeaX6fvCZ';
         $binary = Uuid::fromString($uuid)->getBytes();
 
-        $model = new UuidModel;
+        $model = new Test_UuidModel;
         // Manually assign a uuid
         $model->Uuid = $binary;
         $model->write();
