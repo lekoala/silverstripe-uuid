@@ -41,6 +41,7 @@ TODO
 ==================
 
 - Upgrade to Ramsey v4
+- Postgres compat
 
 Worth reading
 ==================
