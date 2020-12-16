@@ -44,6 +44,12 @@ SQL;
     {
         // Use direct sql statement here
         $sql = "binary(16)";
+        // In postgres, it's bytea, there is also an uuid but we would need some postgres specific logic
+        // @link https://stackoverflow.com/questions/26990559/convert-mysql-binary-to-postgresql-bytea
+        $class = strtolower(get_class(DB::get_conn()));
+        if (strpos($class, 'postgres') !== false) {
+            $sql = 'bytea';
+        }
         DB::require_field($this->tableName, $this->name, $sql);
     }
 
