@@ -32,7 +32,7 @@ class UuidExtension extends DataExtension
         $uuid = Uuid::uuid4();
         if ($check) {
             $schema = DataObjectSchema::create();
-            $table = $schema->tableName(get_class($this->owner));
+            $table = $schema->tableForField(get_class($this->owner), 'Uuid');
             do {
                 $this->owner->Uuid = $uuid->getBytes();
                 // If we have something, keep checking
