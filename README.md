@@ -27,10 +27,14 @@ MyDataObject:
 
 Call UuidExtension::getByUuid(MyDataObject::class, $uuid) to retrieve the record by Uuid.
 
+# Usage in templates
+
 In your templates, use UuidSegment to ensure Uuid value is generated on the record.
 UuidSegment are base62 encoded in order to be shorter and more readable.
 
-Since Uuid's are stored in binary format for performance reason, you need to call $myObject->dbObject('Uuid').Nice()
+# Getting readable values
+
+Since Uuid's are stored in binary format for performance reason, you need to call $myObject->dbObject('Uuid')->Nice()
 to get a readable value.
 
 # Upgrade to Ramsey v4
