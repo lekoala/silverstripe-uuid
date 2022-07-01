@@ -19,6 +19,9 @@ class UuidExtension extends DataExtension
     private static $db = [
         "Uuid" => DBUuid::class,
     ];
+    private static $indexes = [
+        "Uuid" => true,
+    ];
 
     /**
      * Assign a new uuid to this record. This will overwrite any existing uuid.

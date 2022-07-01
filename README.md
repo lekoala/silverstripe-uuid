@@ -1,5 +1,5 @@
-SilverStripe Uuid module
-==================
+# SilverStripe Uuid module
+
 [![Build Status](https://travis-ci.com/lekoala/silverstripe-uuid.svg?branch=master)](https://travis-ci.com/lekoala/silverstripe-uuid)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
@@ -15,14 +15,15 @@ SilverStripe Uuid module
 
 Easily add uuid to your DataObjects
 
-Getting started
-==================
+# Getting started
 
 Simply add the extension to your DataObject
 
-	MyDataObject:
-	  extensions:
-	    - LeKoala\Uuid\UuidExtension
+```yml
+MyDataObject:
+  extensions:
+    - LeKoala\Uuid\UuidExtension
+```
 
 Call UuidExtension::getByUuid(MyDataObject::class, $uuid) to retrieve the record by Uuid.
 
@@ -32,29 +33,25 @@ UuidSegment are base62 encoded in order to be shorter and more readable.
 Since Uuid's are stored in binary format for performance reason, you need to call $myObject->dbObject('Uuid').Nice()
 to get a readable value.
 
-Upgrade to Ramsey v4
-==================
+# Upgrade to Ramsey v4
 
 If you happen to upgrade from previous versions you might want to check [this guide](https://uuid.ramsey.dev/en/latest/upgrading/3-to-4.html)
 
-TODO
-==================
+# TODO
 
 - Upgrade to Ramsey v4
 - Postgres compat
 
-Worth reading
-==================
+# Worth reading
+
 [Storing UUID Values in MySQL](https://www.percona.com/blog/2014/12/19/store-uuid-optimized-way/)
-
 [GUID/UUID Performance](https://mariadb.com/kb/en/guiduuid-performance/)
-
 [Laravel: The mysterious “Ordered UUID”](https://itnext.io/laravel-the-mysterious-ordered-uuid-29e7500b4f8): offer a good overview of the situation although it's a bit laravel specific
 
-Compatibility
-==================
+# Compatibility
+
 Tested with 4.4 and up
 
-Maintainer
-==================
+# Maintainer
+
 LeKoala - thomas@lekoala.be
