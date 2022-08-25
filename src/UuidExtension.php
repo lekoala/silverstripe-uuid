@@ -94,7 +94,7 @@ class UuidExtension extends DataExtension
      */
     public static function getUuidFormat($value)
     {
-        $len = strlen($value);
+        $len = strlen((string)$value);
 
         if ($len == 36) {
             // d84560c8-134f-11e6-a1e2-34363bd26dae => 36 chars
