@@ -26,11 +26,10 @@ class UuidExtension extends DataExtension
     /**
      * Assign a new uuid to this record. This will overwrite any existing uuid.
      *
-     * @param string $field The field where the Uuid is stored in binary format
      * @param bool $check Check if the uuid is already taken
      * @return string The new uuid
      */
-    public function assignNewUuid($field = 'Uuid', $check = true)
+    public function assignNewUuid($check = true)
     {
         $uuid = Uuid::uuid4();
         if ($check) {
