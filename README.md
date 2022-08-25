@@ -25,7 +25,7 @@ MyDataObject:
     - LeKoala\Uuid\UuidExtension
 ```
 
-Call UuidExtension::getByUuid(MyDataObject::class, $uuid) to retrieve the record by Uuid.
+Call `UuidExtension::getByUuid(MyDataObject::class, $uuid)` to retrieve the record by Uuid.
 
 # Usage in templates
 
@@ -43,7 +43,6 @@ If you happen to upgrade from previous versions you might want to check [this gu
 
 # TODO
 
-- Upgrade to Ramsey v4
 - Postgres compat
 
 # Worth reading
