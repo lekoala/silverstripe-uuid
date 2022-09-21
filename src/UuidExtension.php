@@ -5,6 +5,8 @@ namespace LeKoala\Uuid;
 use Ramsey\Uuid\Uuid;
 use SilverStripe\ORM\DB;
 use InvalidArgumentException;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\ReadonlyField;
 use SilverStripe\ORM\DataObject;
 use Tuupola\Base62Proxy as Base62;
 use SilverStripe\ORM\DataExtension;
@@ -125,6 +127,14 @@ class UuidExtension extends DataExtension
             }
         }
         return $this->owner->dbObject('Uuid')->Base62();
+    }
+
+    public function updateCMSFields(FieldList $fields)
+    {
+        if (DBUuid::config()->show_cms_field) {
+            $firstField = $fields->dataFieldNames()[0] ?? null;
+            $fields->addFieldToTab('Root.Main', ReadonlyField::create('UuidNice', 'Uuid', $this->owner->dbObject('Uuid')->Nice()), $firstField);
+        }
     }
 
     public function onBeforeWrite()

@@ -5,3 +5,5 @@ After: '#corefieldtypes'
 SilverStripe\Core\Injector\Injector:
   Uuid:
     class: LeKoala\Uuid\DBUuid
+LeKoala\Uuid\DBUuid:
+  show_cms_field: false
