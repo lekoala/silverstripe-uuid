@@ -100,6 +100,14 @@ SQL;
         return null;
     }
 
+    public function setValue($value, $record = null, $markChanged = true)
+    {
+        if ($value && strlen($value) !== 16) {
+            $value = Uuid::fromString($value)->getBytes();
+        }
+        return parent::setValue($value, $record, $markChanged);
+    }
+
     public function prepValueForDB($value)
     {
         if (!$value) {
