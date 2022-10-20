@@ -19,6 +19,8 @@ use Ramsey\Uuid\Uuid;
  */
 class DBUuid extends DBField
 {
+    const BINARY_LENGTH = 16;
+    const STRING_LENGTH = 36;
 
     /**
      * An expression to use in your custom queries
@@ -102,7 +104,7 @@ SQL;
 
     public function setValue($value, $record = null, $markChanged = true)
     {
-        if ($value && strlen($value) !== 16) {
+        if ($value && is_string($value) && strlen($value) > self::BINARY_LENGTH && Uuid::isValid($value)) {
             $value = Uuid::fromString($value)->getBytes();
         }
         return parent::setValue($value, $record, $markChanged);
@@ -115,7 +117,7 @@ SQL;
         }
         // Uuid in string format have 36 chars
         // Strlen 16 = already binary
-        if (strlen($value) === 16) {
+        if (strlen($value) === self::BINARY_LENGTH) {
             return $value;
         }
         return Uuid::fromString($value)->getBytes();
