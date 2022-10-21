@@ -1,5 +1,6 @@
 # SilverStripe Uuid module
 
+![Build Status](https://github.com/lekoala/silverstripe-uuid/actions/workflows/ci.yml/badge.svg)
 [![Build Status](https://travis-ci.com/lekoala/silverstripe-uuid.svg?branch=master)](https://travis-ci.com/lekoala/silverstripe-uuid)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
@@ -26,6 +27,7 @@ MyDataObject:
 ```
 
 Call `UuidExtension::getByUuid(MyDataObject::class, $uuid)` to retrieve the record by Uuid.
+Since that's really ugly, you can also use the `HasUuid` trait on your classes to return a properly type hinted class.
 
 # Usage in templates
 
