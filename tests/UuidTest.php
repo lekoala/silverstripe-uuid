@@ -33,6 +33,10 @@ class UuidTest extends SapphireTest
         // check if we can fetch this record using our helper
         $fetchedModel = UuidExtension::getByUuid(Test_UuidModel::class, $model->Uuid);
         $this->assertEquals($model->ID, $fetchedModel->ID);
+
+        // or with the trait
+        $fetchedModel = Test_UuidModel::byUuid($model->Uuid);
+        $this->assertEquals($model->ID, $fetchedModel->ID);
     }
 
     public function testFormatting()
