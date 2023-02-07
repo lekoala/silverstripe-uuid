@@ -70,7 +70,13 @@ class UuidExtension extends DataExtension
         // Convert format to bytes for query
         switch ($format) {
             case self::UUID_BASE62_FORMAT:
-                $uuid = Uuid::fromBytes(Base62::decode($value));
+                try {
+                    $decodedValue = Base62::decode($value);
+                } catch (InvalidArgumentException $ex) {
+                    // Invalid arguments should not return anything
+                    return false;
+                }
+                $uuid = Uuid::fromBytes($decodedValue);
                 break;
             case self::UUID_STRING_FORMAT:
                 $uuid = Uuid::fromString($value);
