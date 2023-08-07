@@ -50,7 +50,7 @@ class UuidTest extends SapphireTest
         $model->Uuid = $binary;
         $model->write();
 
-        /* @var $dbUuid DBUuid */
+        /** @var DBUuid $dbUuid */
         $dbUuid = $model->dbObject('Uuid');
 
         $this->assertEquals($uuid, $dbUuid->Nice());
@@ -73,7 +73,7 @@ class UuidTest extends SapphireTest
         $model->Uuid = $binary;
         $model->write();
 
-        /* @var $dbUuid DBUuid */
+        /** @var DBUuid $dbUuid */
         $dbUuid = $model->dbObject('Uuid');
         $this->assertEquals($base62, $dbUuid->Base62());
     }
