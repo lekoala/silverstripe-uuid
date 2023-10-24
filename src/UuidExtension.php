@@ -14,16 +14,29 @@ use SilverStripe\ORM\DataObjectSchema;
 
 class UuidExtension extends DataExtension
 {
+    const UUID_FIELD = 'Uuid';
     const UUID_BINARY_FORMAT = 'binary';
     const UUID_STRING_FORMAT = 'string';
     const UUID_BASE62_FORMAT = 'base62';
 
     private static $db = [
-        "Uuid" => DBUuid::class,
+        self::UUID_FIELD => DBUuid::class,
     ];
+
     private static $indexes = [
-        "Uuid" => true,
+        self::UUID_FIELD => true,
     ];
+
+    protected function getBaseTableName(): string
+    {
+        $schema = DataObjectSchema::create();
+        $table = $schema->tableForField(
+            get_class($this->getOwner()),
+            self::UUID_FIELD
+        );
+
+        return $table;
+    }
 
     /**
      * Assign a new uuid to this record. This will overwrite any existing uuid.
@@ -35,8 +48,7 @@ class UuidExtension extends DataExtension
     {
         $uuid = Uuid::uuid4();
         if ($check) {
-            $schema = DataObjectSchema::create();
-            $table = $schema->tableForField(get_class($this->owner), 'Uuid');
+            $table = $this->getBaseTableName();
             do {
                 $this->owner->Uuid = $uuid->getBytes();
                 // If we have something, keep checking
@@ -88,7 +100,10 @@ class UuidExtension extends DataExtension
                 return false;
         }
         // Fetch the first record and disable subsite filter in a similar way as asking by ID
-        $q = $class::get()->filter('Uuid', $uuid->getBytes())->setDataQueryParam('Subsite.filter', false);
+        $q = $class::get()->filter(
+            self::UUID_FIELD,
+            $uuid->getBytes()
+        )->setDataQueryParam('Subsite.filter', false);
         return $q->first();
     }
 
@@ -127,12 +142,11 @@ class UuidExtension extends DataExtension
             $uuid = $this->assignNewUuid();
             // Make a quick write without using orm
             if ($this->owner->ID) {
-                $schema = new DataObjectSchema;
-                $table = $schema->tableName(get_class($this->owner));
+                $table = $this->getBaseTableName();
                 DB::prepared_query("UPDATE $table SET Uuid = ? WHERE ID = ?", [$uuid, $this->owner->ID]);
             }
         }
-        return $this->owner->dbObject('Uuid')->Base62();
+        return $this->owner->dbObject(self::UUID_FIELD)->Base62();
     }
 
     public function updateCMSFields(FieldList $fields)
