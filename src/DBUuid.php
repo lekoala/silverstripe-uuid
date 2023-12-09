@@ -6,6 +6,7 @@ use SilverStripe\ORM\DB;
 use SilverStripe\ORM\FieldType\DBField;
 use Tuupola\Base62Proxy;
 use Ramsey\Uuid\Uuid;
+use SilverStripe\Core\Convert;
 
 /**
  * A uuid field that stores Uuid in binary formats
@@ -40,6 +41,23 @@ SUBSTR(HEX(Uuid), 21)
 )) AS UuidFormatted
 SQL;
         return $sql;
+    }
+
+    /**
+     * This can be used with ->where clause
+     *
+     * @param string $type like, =
+     * @param string $value
+     * @return string
+     */
+    public function filterExpression($type, $value)
+    {
+        if ($type == "like") {
+            $value = "%$value%";
+        }
+        $value = str_replace('-', '', $value);
+        $value = Convert::raw2sql($value, true);
+        return "LOWER(HEX({$this->name})) $type $value";
     }
 
     public function requireField()
