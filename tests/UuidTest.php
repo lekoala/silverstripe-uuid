@@ -14,11 +14,14 @@ use SilverStripe\Dev\SapphireTest;
  */
 class UuidTest extends SapphireTest
 {
+    /**
+     * @var array<class-string>
+     */
     protected static $extra_dataobjects = [
         Test_UuidModel::class
     ];
 
-    public function testRecordGetsUuid()
+    public function testRecordGetsUuid(): void
     {
         $model = new Test_UuidModel;
 
@@ -39,7 +42,7 @@ class UuidTest extends SapphireTest
         $this->assertEquals($model->ID, $fetchedModel->ID);
     }
 
-    public function testFormatting()
+    public function testFormatting(): void
     {
         $uuid = 'd84560c8-134f-11e6-a1e2-34363bd26dae';
         $base62 = '6a630O1jrtMjCrQDyG3D3O';

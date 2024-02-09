@@ -11,12 +11,21 @@ class Test_UuidModel extends DataObject implements TestOnly
 {
     use HasUuid;
 
+    /**
+     * @var string
+     */
     private static $table_name = 'UuidModel';
 
+    /**
+     * @var array<string,string>
+     */
     private static $db = [
         'Title' => 'Varchar',
         'UuidAlias' => 'Uuid',
     ];
+    /**
+     * @var array<clazss-string>
+     */
     private static $extensions = [
         UuidExtension::class
     ];

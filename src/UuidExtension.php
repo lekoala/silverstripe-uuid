@@ -19,10 +19,16 @@ class UuidExtension extends DataExtension
     const UUID_STRING_FORMAT = 'string';
     const UUID_BASE62_FORMAT = 'base62';
 
+    /**
+     * @var array<string,string>
+     */
     private static $db = [
         self::UUID_FIELD => DBUuid::class,
     ];
 
+    /**
+     * @var array<string,mixed>
+     */
     private static $indexes = [
         self::UUID_FIELD => true,
     ];
@@ -65,7 +71,7 @@ class UuidExtension extends DataExtension
      * Get a record by its uuid
      *
      * @param string $class The class
-     * @param string $uuid The uuid value
+     * @param string $value The uuid value
      * @param string $format Any UUID_XXXX_FORMAT constant or string
      * @return DataObject|false The DataObject or false if no record is found or format invalid
      */
@@ -146,17 +152,29 @@ class UuidExtension extends DataExtension
                 DB::prepared_query("UPDATE $table SET Uuid = ? WHERE ID = ?", [$uuid, $this->owner->ID]);
             }
         }
-        return $this->owner->dbObject(self::UUID_FIELD)->Base62();
+        /** @var DBUuid $dbObject */
+        $dbObject = $this->owner->dbObject(self::UUID_FIELD);
+        return $dbObject->Base62();
     }
 
+    /**
+     * @param FieldList $fields
+     * @return void
+     */
     public function updateCMSFields(FieldList $fields)
     {
         if (DBUuid::config()->show_cms_field) {
             $firstField = $fields->dataFieldNames()[0] ?? null;
-            $fields->addFieldToTab('Root.Main', ReadonlyField::create('UuidNice', 'Uuid', $this->owner->dbObject('Uuid')->Nice()), $firstField);
+            /** @var DBUuid $dbObject */
+            $dbObject = $this->owner->dbObject('Uuid');
+            $uuidField = ReadonlyField::create('UuidNice', 'Uuid', $dbObject->Nice());
+            $fields->addFieldToTab('Root.Main', $uuidField, $firstField);
         }
     }
 
+    /**
+     * @return void
+     */
     public function onBeforeWrite()
     {
         parent::onBeforeWrite();

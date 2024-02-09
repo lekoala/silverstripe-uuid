@@ -2,11 +2,13 @@
 
 namespace LeKoala\Uuid;
 
-use SilverStripe\ORM\DB;
-use SilverStripe\ORM\FieldType\DBField;
-use Tuupola\Base62Proxy;
 use Ramsey\Uuid\Uuid;
+use SilverStripe\ORM\DB;
+use Tuupola\Base62Proxy;
 use SilverStripe\Core\Convert;
+use SilverStripe\ORM\DataObject;
+use SilverStripe\Forms\FormField;
+use SilverStripe\ORM\FieldType\DBField;
 
 /**
  * A uuid field that stores Uuid in binary formats
@@ -56,10 +58,14 @@ SQL;
             $value = "%$value%";
         }
         $value = str_replace('-', '', $value);
+        /** @var string $value */
         $value = Convert::raw2sql($value, true);
         return "LOWER(HEX({$this->name})) $type $value";
     }
 
+    /**
+     * @return void
+     */
     public function requireField()
     {
         // Use direct sql statement here
@@ -110,9 +116,14 @@ SQL;
         return Base62Proxy::encode($this->value);
     }
 
+    /**
+     * @param string $title
+     * @param array<mixed> $params
+     * @return FormField|null
+     */
     public function scaffoldFormField($title = null, $params = null)
     {
-        return false;
+        return null;
     }
 
     public function nullValue()
@@ -120,6 +131,12 @@ SQL;
         return null;
     }
 
+    /**
+     * @param mixed $value
+     * @param DataObject|array<string,mixed> $record
+     * @param boolean $markChanged
+     * @return $this
+     */
     public function setValue($value, $record = null, $markChanged = true)
     {
         if ($value && is_string($value) && strlen($value) > self::BINARY_LENGTH && Uuid::isValid($value)) {
@@ -128,6 +145,10 @@ SQL;
         return parent::setValue($value, $record, $markChanged);
     }
 
+    /**
+     * @param string $value
+     * @return string|null
+     */
     public function prepValueForDB($value)
     {
         if (!$value) {
