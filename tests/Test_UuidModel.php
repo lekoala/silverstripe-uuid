@@ -24,7 +24,7 @@ class Test_UuidModel extends DataObject implements TestOnly
         'UuidAlias' => 'Uuid',
     ];
     /**
-     * @var array<clazss-string>
+     * @var array<class-string>
      */
     private static $extensions = [
         UuidExtension::class
