@@ -70,10 +70,11 @@ class UuidExtension extends DataExtension
     /**
      * Get a record by its uuid
      *
-     * @param string $class The class
+     * @template T
+     * @param class-string<T> $class The class
      * @param string $value The uuid value
      * @param string $format Any UUID_XXXX_FORMAT constant or string
-     * @return DataObject|false The DataObject or false if no record is found or format invalid
+     * @return T|null The DataObject or null if no record is found or format invalid
      */
     public static function getByUuid($class, $value, $format = null)
     {
@@ -92,7 +93,7 @@ class UuidExtension extends DataExtension
                     $decodedValue = Base62::decode($value);
                 } catch (InvalidArgumentException $ex) {
                     // Invalid arguments should not return anything
-                    return false;
+                    return null;
                 }
                 $uuid = Uuid::fromBytes($decodedValue);
                 break;
@@ -103,7 +104,7 @@ class UuidExtension extends DataExtension
                 $uuid = Uuid::fromBytes($value);
                 break;
             default:
-                return false;
+                return null;
         }
         // Fetch the first record and disable subsite filter in a similar way as asking by ID
         $q = $class::get()->filter(
