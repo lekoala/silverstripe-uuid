@@ -23,7 +23,7 @@ class UuidTest extends SapphireTest
 
     public function testRecordGetsUuid(): void
     {
-        $model = new Test_UuidModel;
+        $model = new Test_UuidModel();
 
         $modelTitle = 'test model';
         $model->Title = $modelTitle;
@@ -48,7 +48,7 @@ class UuidTest extends SapphireTest
         $base62 = '6a630O1jrtMjCrQDyG3D3O';
         $binary = Uuid::fromString($uuid)->getBytes();
 
-        $model = new Test_UuidModel;
+        $model = new Test_UuidModel();
         // Manually assign a uuid
         $model->Uuid = $binary;
         $model->write();
@@ -71,7 +71,7 @@ class UuidTest extends SapphireTest
         $base62 = '6YRobjF5RORzHeaX6fvCZ';
         $binary = Uuid::fromString($uuid)->getBytes();
 
-        $model = new Test_UuidModel;
+        $model = new Test_UuidModel();
         // Manually assign a uuid
         $model->Uuid = $binary;
         $model->write();

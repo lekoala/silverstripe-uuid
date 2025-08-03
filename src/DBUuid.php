@@ -8,6 +8,7 @@ use Tuupola\Base62Proxy;
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Forms\FormField;
+use SilverStripe\Model\ModelData;
 use SilverStripe\ORM\FieldType\DBField;
 
 /**
@@ -22,8 +23,9 @@ use SilverStripe\ORM\FieldType\DBField;
  */
 class DBUuid extends DBField
 {
-    const BINARY_LENGTH = 16;
-    const STRING_LENGTH = 36;
+    protected const BINARY_LENGTH = 16;
+
+    protected const STRING_LENGTH = 36;
 
     /**
      * An expression to use in your custom queries
@@ -66,7 +68,7 @@ SQL;
     /**
      * @return void
      */
-    public function requireField()
+    public function requireField(): void
     {
         // Use direct sql statement here
         $sql = "binary(16)";
@@ -121,12 +123,12 @@ SQL;
      * @param array<mixed> $params
      * @return FormField|null
      */
-    public function scaffoldFormField($title = null, $params = null)
+    public function scaffoldFormField(?string $title = null, array $params = []): ?FormField
     {
         return null;
     }
 
-    public function nullValue()
+    public function nullValue(): mixed
     {
         return null;
     }
@@ -137,7 +139,7 @@ SQL;
      * @param boolean $markChanged
      * @return $this
      */
-    public function setValue($value, $record = null, $markChanged = true)
+    public function setValue(mixed $value, null|array|ModelData $record = null, bool $markChanged = true): static
     {
         if ($value && is_string($value) && strlen($value) > self::BINARY_LENGTH && Uuid::isValid($value)) {
             $value = Uuid::fromString($value)->getBytes();
@@ -146,10 +148,10 @@ SQL;
     }
 
     /**
-     * @param string $value
-     * @return string|null
+     * @param mixed $value
+     * @return mixed
      */
-    public function prepValueForDB($value)
+    public function prepValueForDB(mixed $value): mixed
     {
         if (!$value) {
             return $this->nullValue();
