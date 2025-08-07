@@ -1,7 +1,6 @@
 # SilverStripe Uuid module
 
-![Build Status](https://github.com/lekoala/silverstripe-uuid/actions/workflows/ci.yml/badge.svg)
-[![Build Status](https://travis-ci.com/lekoala/silverstripe-uuid.svg?branch=master)](https://travis-ci.com/lekoala/silverstripe-uuid)
+[![Build Status](https://github.com/lekoala/silverstripe-uuid/actions/workflows/ci.yml/badge.svg)](https://github.com/lekoala/silverstripe-uuid/actions)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/badges/build.png?b=master)](https://scrutinizer-ci.com/g/lekoala/silverstripe-uuid/build-status/master)
