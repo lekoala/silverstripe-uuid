@@ -23,6 +23,7 @@ class Test_UuidModel extends DataObject implements TestOnly
         'Title' => 'Varchar',
         'UuidAlias' => 'Uuid',
     ];
+
     /**
      * @var array<class-string>
      */

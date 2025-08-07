@@ -5,19 +5,21 @@ namespace LeKoala\Uuid;
 use Ramsey\Uuid\Uuid;
 use SilverStripe\ORM\DB;
 use InvalidArgumentException;
+use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\ReadonlyField;
-use SilverStripe\ORM\DataObject;
 use Tuupola\Base62Proxy as Base62;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObjectSchema;
 
-class UuidExtension extends DataExtension
+class UuidExtension extends Extension
 {
-    const UUID_FIELD = 'Uuid';
-    const UUID_BINARY_FORMAT = 'binary';
-    const UUID_STRING_FORMAT = 'string';
-    const UUID_BASE62_FORMAT = 'base62';
+    public const UUID_FIELD = 'Uuid';
+
+    public const UUID_BINARY_FORMAT = 'binary';
+
+    public const UUID_STRING_FORMAT = 'string';
+
+    public const UUID_BASE62_FORMAT = 'base62';
 
     /**
      * @var array<string,string>
@@ -58,7 +60,10 @@ class UuidExtension extends DataExtension
             do {
                 $this->owner->Uuid = $uuid->getBytes();
                 // If we have something, keep checking
-                $check = DB::prepared_query('SELECT count(ID) FROM ' . $table . ' WHERE Uuid = ?', [$this->owner->Uuid])->value() > 0;
+                $check = DB::prepared_query(
+                    'SELECT count(ID) FROM ' . $table . ' WHERE Uuid = ?',
+                    [$this->owner->Uuid]
+                )->value() > 0;
             } while ($check);
         } else {
             $this->owner->Uuid = $uuid->getBytes();
@@ -178,9 +183,9 @@ class UuidExtension extends DataExtension
      */
     public function onBeforeWrite()
     {
-        parent::onBeforeWrite();
+        $owner = $this->getOwner();
 
-        if (!$this->owner->Uuid) {
+        if (!$owner->Uuid) {
             $this->assignNewUuid();
         }
     }
