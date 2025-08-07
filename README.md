@@ -55,7 +55,9 @@ If you happen to upgrade from previous versions you might want to check [this gu
 
 # Compatibility
 
-Tested with 4.4 and up
+Tested with SilverStripe 6 and up
+
+For 4.x and 5.x, see branch 1
 
 # Maintainer
 
