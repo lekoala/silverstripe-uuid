@@ -82,7 +82,7 @@ SQL;
     }
 
     /**
-     * @return string A uuid identifier like 0564a64ecdd4a2-7731-3233-3435-7cea2b
+     * @return ?string A uuid identifier like 0564a64ecdd4a2-7731-3233-3435-7cea2b
      */
     public function Nice()
     {
@@ -95,7 +95,7 @@ SQL;
     /**
      * Return raw value since we store binary(16) representation
      *
-     * @return string The binary representation like b"\x05d¦NÍÔ¢w12345|ê+
+     * @return ?string The binary representation like b"\x05d¦NÍÔ¢w12345|ê+
      */
     public function Bytes()
     {
@@ -108,7 +108,7 @@ SQL;
     /**
      * Perfect for urls or html usage
      *
-     * @return string A base62 representation like 6a630O1jrtMjCrQDyG3D3O
+     * @return ?string A base62 representation like 6a630O1jrtMjCrQDyG3D3O
      */
     public function Base62()
     {
@@ -128,6 +128,9 @@ SQL;
         return null;
     }
 
+    /**
+     * @return null
+     */
     public function nullValue(): mixed
     {
         return null;

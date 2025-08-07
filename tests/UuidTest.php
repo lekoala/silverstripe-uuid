@@ -9,8 +9,6 @@ use SilverStripe\Dev\SapphireTest;
 
 /**
  * Test for Uuid
- *
- * @group Uuid
  */
 class UuidTest extends SapphireTest
 {
