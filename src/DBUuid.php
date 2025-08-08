@@ -74,11 +74,20 @@ SQL;
         $sql = "binary(16)";
         // In postgres, it's bytea, there is also an uuid but we would need some postgres specific logic
         // @link https://stackoverflow.com/questions/26990559/convert-mysql-binary-to-postgresql-bytea
-        $class = strtolower(get_class(DB::get_conn() ?? ''));
-        if (str_contains($class, 'postgres')) {
+        if (self::isPostgreSQL()) {
             $sql = 'bytea';
         }
         DB::require_field($this->tableName, $this->name, $sql);
+    }
+
+    protected static function isPostgreSQL(): bool
+    {
+        $conn = DB::get_conn();
+        if (!$conn) {
+            return false;
+        }
+        $class = strtolower(get_class($conn));
+        return str_contains($class, 'postgres');
     }
 
     /**
@@ -146,7 +155,8 @@ SQL;
         if ($value && is_string($value) && strlen($value) > self::BINARY_LENGTH && Uuid::isValid($value)) {
             $value = Uuid::fromString($value)->getBytes();
         }
-        return parent::setValue($value, $record, $markChanged);
+        $this->value = $value;
+        return $this;
     }
 
     /**
