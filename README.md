@@ -38,6 +38,16 @@ UuidSegment are base62 encoded in order to be shorter and more readable.
 Since Uuid's are stored in binary format for performance reason, you need to call $myObject->dbObject('Uuid')->Nice()
 to get a readable value.
 
+# Populate Uuids of existing DataObjects
+
+Apply the `PrepopulateUuidExtension` to have Uuids for existing DataObjects generated on `dev/build`.
+
+```yml
+MyUuidDataObject:
+  extensions:
+    - LeKoala\Uuid\PrepopulateUuidExtension
+```
+
 # Upgrade to Ramsey v4
 
 If you happen to upgrade from previous versions you might want to check [this guide](https://uuid.ramsey.dev/en/latest/upgrading/3-to-4.html)
